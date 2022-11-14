@@ -1,7 +1,5 @@
-import '@/styles/dist.css';
+// import '@/styles/dist.css';
 import React from 'react';
-import AddressBar from '@/ui/AddressBar';
-import GlobalNav from './GlobalNav';
 
 export default function RootLayout({
   children,
@@ -12,46 +10,42 @@ export default function RootLayout({
     <html>
       <head>
         <title>Next.js Turbopack App Directory Playground</title>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
+        />
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href="../src/assets/img/favicon.ico"
+        />
+        <link
+          href="https://fonts.googleapis.com/css?family=Nunito:400,600,700"
+          rel="stylesheet"
+        />
+        <link
+          href="/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet"
+          type="text/css"
+        />
+        <link
+          href="/modern-dark-menu/css/light/plugins.css"
+          rel="stylesheet"
+          type="text/css"
+        />
+        <link
+          href="/modern-dark-menu/css/dark/plugins.css"
+          rel="stylesheet"
+          type="text/css"
+        />
       </head>
-      <body className="overflow-y-scroll bg-zinc-900">
-        <div className="grid grid-cols-[1fr,minmax(auto,240px),min(800px,100%),1fr] gap-x-8 py-8">
-          <div className="col-start-2">
-            <GlobalNav />
-          </div>
-
-          <div className="col-start-3 space-y-6">
-            <AddressBar />
-
-            <div className="rounded-xl border border-zinc-800 bg-black p-8">
-              {children}
-            </div>
-          </div>
-
-          <div className="col-start-3 col-end-4 mt-28 flex items-center justify-center">
-            <div className="text-sm text-zinc-600">
-              Created by the <b>Next.js</b>
-              {' team at '}
-              <a href="https://vercel.com">
-                <b>Vercel</b>
-              </a>
-              {'. '}
-              <a
-                className="underline decoration-dotted underline-offset-4"
-                href="https://github.com/vercel/next.js/examples/with-turbopack"
-              >
-                View the code
-              </a>
-              {' or '}
-              <a
-                className="underline decoration-dotted underline-offset-4"
-                href="https://vercel.com/templates/next.js"
-              >
-                deploy your own
-              </a>
-              {'.'}
-            </div>
-          </div>
-        </div>
+      <body>
+        {children}
+        {/* <!-- BEGIN GLOBAL MANDATORY SCRIPTS --> */}
+        <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+        {/* <!-- END GLOBAL MANDATORY SCRIPTS --> */}
       </body>
     </html>
   );

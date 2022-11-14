@@ -1,0 +1,9 @@
+@import url('/plugins/src/flatpickr/flatpickr.css');
+@import url('/plugins/src/filepond/filepond.min.css');
+@import url('/plugins/src/filepond/FilePondPluginImagePreview.min.css');
+@import url('/plugins/css/light/filepond/custom-filepond.css');
+@import url('/plugins/css/light/flatpickr/custom-flatpickr.css');
+@import url('/assets/css/light/apps/invoice-edit.css');
+@import url('/plugins/css/dark/filepond/custom-filepond.css');
+@import url('/plugins/css/dark/flatpickr/custom-flatpickr.css');
+@import url('/assets/css/dark/apps/invoice-edit.css');
