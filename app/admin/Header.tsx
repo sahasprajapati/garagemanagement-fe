@@ -1,4 +1,17 @@
+"use client"
+
+import { logoutUser } from "@/lib/auth/function"
+import { useRouter } from "next/navigation"
+import { useContext } from "react"
+import { GlobalContext } from "../context"
+
 export default function Header () {
+  const {setUser} = useContext(GlobalContext)
+  const router = useRouter()
+  const onLogout = async () => {
+    await logoutUser(setUser)
+    router.replace("/auth/signin")
+  }
     return (
         <>
            {/* Header */}
@@ -574,7 +587,7 @@ export default function Header () {
                      </a>
                    </div>
                    <div className="dropdown-item">
-                     <a href="auth-boxed-signin.html">
+                     <a href="#" onClick={onLogout}>
                        <svg
                          xmlns="http://www.w3.org/2000/svg"
                          width="24"

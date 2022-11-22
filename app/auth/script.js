@@ -253,7 +253,7 @@ var AppScript = function () {
       var togglethemeEl = document.querySelector('.theme-toggle');
       var getBodyEl = document.body;
 
-      togglethemeEl.addEventListener('click', function () {
+      togglethemeEl.addEventListener('click', function () {        
         var getLocalStorage = localStorage.getItem('theme');
         var parseObj = JSON.parse(getLocalStorage);
 
@@ -326,6 +326,8 @@ var AppScript = function () {
         }
 
         // localStorage.clear()
+        const event = new Event('themeChanged');
+        document.dispatchEvent(event);
       });
     },
   };

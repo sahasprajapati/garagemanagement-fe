@@ -1,127 +1,19 @@
-export default function Sidebar() {
-  const routes = [
-    {
-      title: 'APP',
-      items: [
-        {
-          title: 'Home',
-          href: '/',
-          icon: (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-calendar"
-            >
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-          ),
-        },
-      ],
-    },
-    {
-      title: 'APP2',
-      items: [
-        {
-          title: 'Home',
-          href: '/',
-          icon: (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-minus"
-            >
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          ),
-        },
-        {
-          title: 'Invoice',
-          href: '/',
-          icon: (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-minus"
-            >
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          ),
-          subItem: [
-            {
-              title: 'Add Item',
-              href: '/admin/invoice/add',
-            },
-            {
-              title: 'List Item',
-              href: '/admin/invoice/list',
-            },
-            {
-              title: 'Preview Item',
-              href: '/admin/invoice/preview',
-            },
-          ],
-        },
+'use client';
+import { adminRoutes } from '@/lib/admin-route';
+import { useAbility } from '@casl/react';
+import { useRouter } from 'next/navigation';
+import { AbilityContext } from '../abilityContext';
 
-        {
-          title: 'Ecommerce',
-          href: '/',
-          icon: (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="feather feather-minus"
-            >
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          ),
-          subItem: [
-            {
-              title: 'Add Item',
-              href: '/admin/ecommerce/add',
-            },
-            {
-              title: 'List Item',
-              href: '/admin/ecommerce/list',
-            },
-          ],
-        },
-      ],
-    },
-  ];
+export default function Sidebar() {
+  const router = useRouter();
+  const ability = useAbility(AbilityContext);
   return (
     <div className="sidebar-wrapper sidebar-theme">
-      <nav id="sidebar">
+      <nav id="sidebar"
+        style={{
+          height: "100vh !important"
+        }}
+      >
         <div className="navbar-nav theme-brand flex-row  text-center">
           <div className="nav-logo">
             <div className="nav-item theme-logo">
@@ -214,7 +106,7 @@ export default function Sidebar() {
             </ul>
           </li>
 
-          {routes?.map((route, idx) => {
+          {adminRoutes?.map((route, idx) => {
             return (
               <div key={idx}>
                 <li className="menu menu-heading">
@@ -225,86 +117,83 @@ export default function Sidebar() {
 
                 {route.items.map((item, index) => {
                   return (
-                    <div key={index}>
-                      {item.subItem && item?.subItem?.length > 0 ? (
-                        <li className="menu" key={index}>
-                          <a
-                            href={'#' + route.title + index}
-                            data-bs-toggle="collapse"
-                            aria-expanded="false"
-                            className="dropdown-toggle"
-                          >
-                            <div className="">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="feather feather-shopping-cart"
-                              >
-                                <circle cx="9" cy="21" r="1"></circle>
-                                <circle cx="20" cy="21" r="1"></circle>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                              </svg>
-                              <span>{item.title}</span>
-                            </div>
-                            <div>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="feather feather-chevron-right"
-                              >
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                              </svg>
-                            </div>
-                          </a>
-                          <ul
-                            className="submenu list-unstyled collapse"
-                            id={route.title + index}
-                            data-bs-parent="#accordionExample"
-                          >
-                            {item.subItem?.map((sub, i) => {
-                              return (
-                                <li key={i}>
-                                  <a href={sub.href}> {sub.title} </a>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </li>
-                      ) : (
-                        <li className="menu" key={index}>
-                          <a
-                            href={item.href}
-                            aria-expanded="false"
-                            className="dropdown-toggle"
-                          >
-                            <div className="">
-                              {item.icon}
-                              <span>{item.title}</span>
-                            </div>
-                          </a>
-                        </li>
-                      )}
-                    </div>
+                    ability.can('read', 'all') && (
+                      <div key={index}>
+                        {item.subItem && item?.subItem?.length > 0 ? (
+                          <li className="menu" key={index}>
+                            <a
+                              href={'#' + route.title + index}
+                              // onClick={() => {
+                              //   router.push(item?.subItem[0]?.href);
+                              // }}
+                              data-bs-toggle="collapse"
+                              aria-expanded="false"
+                              className="dropdown-toggle"
+                            >
+                              <div className="">
+                                {item.icon}
+                                <span>{item.title}</span>
+                              </div>
+                              <div>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  className="feather feather-chevron-right"
+                                >
+                                  <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                              </div>
+                            </a>
+                            <ul
+                              className="submenu list-unstyled collapse"
+                              id={route.title + index}
+                              data-bs-parent="#accordionExample"
+                            >
+                              {item.subItem?.map((sub, i) => {
+                                return (
+                                  <li key={i}>
+                                    <a
+                                      onClick={() => {
+                                        router.push(sub.href);
+                                      }}
+                                    >
+                                      {sub.title}{' '}
+                                    </a>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </li>
+                        ) : (
+                          <li className="menu" key={index}>
+                            <a
+                              href={item.href}
+                              aria-expanded="false"
+                              className="dropdown-toggle"
+                            >
+                              <div className="">
+                                {item.icon}
+                                <span>{item.title}</span>
+                              </div>
+                            </a>
+                          </li>
+                        )}
+                      </div>
+                    )
                   );
                 })}
               </div>
             );
           })}
-          <li className="menu menu-heading">
+
+          {/* <li className="menu menu-heading">
             <div className="heading">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -322,8 +211,8 @@ export default function Sidebar() {
               </svg>
               <span>APPLICATIONS</span>
             </div>
-          </li>
-
+          </li> */}
+{/* 
           <li className="menu">
             <a
               href="./app-calendar.html"
@@ -1818,7 +1707,7 @@ export default function Sidebar() {
                 <span>Changelog</span>
               </div>
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>

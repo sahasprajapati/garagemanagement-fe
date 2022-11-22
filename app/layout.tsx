@@ -1,6 +1,11 @@
 // import '@/styles/dist.css';
+import { Can } from '@casl/react';
 import React from 'react';
-
+import { Toaster } from 'react-hot-toast';
+import { SWRConfig } from 'swr';
+import AbilityContextProvider from './abilityContext';
+import GlobalContextProvider from './context';
+import ReactHotToast from './ReactHotToast';
 export default function RootLayout({
   children,
 }: {
@@ -42,9 +47,17 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {children}
+
+          <GlobalContextProvider>
+            <AbilityContextProvider>{children}</AbilityContextProvider>
+            <ReactHotToast />
+          </GlobalContextProvider>
+
         {/* <!-- BEGIN GLOBAL MANDATORY SCRIPTS --> */}
         <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script src="/mousetrap/mousetrap.min.js"></script>
+        <script src="/waves/waves.min.js"></script>
         {/* <!-- END GLOBAL MANDATORY SCRIPTS --> */}
       </body>
     </html>

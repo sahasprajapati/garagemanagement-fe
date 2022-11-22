@@ -1,6 +1,54 @@
+'use client';
+import { GlobalContext } from '@/app/context';
+import { ILogin, login } from '@/lib/api/auth';
+import { loginUser, logoutUser } from '@/lib/auth/function';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useSWRConfig } from 'swr';
+import { loginSchema } from './login.schema';
+
 export default function SignIn() {
+  const router = useRouter();
+  const { setUser } = useContext(GlobalContext);
+  const { mutate } = useSWRConfig();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<ILogin>({
+    resolver: yupResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: ILogin) => {
+    try {
+      const user = await mutate('/api/login', login(data), {
+        revalidate: false,
+      });
+      console.log('Sahas user', user);
+
+      loginUser(setUser, user.accessToken)
+        .then(() => {
+          router.replace('/admin/dashboard');
+        })
+        .catch(() => {
+          logoutUser(setUser);
+          toast.error('Error Singing In');
+        });
+
+      console.log('Sahas data', user);
+    } catch (err) {
+      console.log('Sahas err', err);
+      toast.error('Invalid credentials!');
+    }
+  };
+
   return (
-    <div className="form">
+    <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <div className="auth-container d-flex">
         <div className="align-self-center container mx-auto">
           <div className="row">
@@ -15,13 +63,27 @@ export default function SignIn() {
                     <div className="col-md-12">
                       <div className="mb-3">
                         <label className="form-label">Email</label>
-                        <input type="email" className="form-control" />
+                        <input
+                          type="email"
+                          className="form-control"
+                          {...register('email')}
+                        />
+                        {errors.email?.message && (
+                          <span>{errors.email?.message as string}</span>
+                        )}
                       </div>
                     </div>
                     <div className="col-12">
                       <div className="mb-4">
                         <label className="form-label">Password</label>
-                        <input type="text" className="form-control" />
+                        <input
+                          type="text"
+                          className="form-control"
+                          {...register('password')}
+                        />
+                        {errors.password?.message && (
+                          <span>{errors.password?.message as string}</span>
+                        )}
                       </div>
                     </div>
                     <div className="col-12">
@@ -44,7 +106,10 @@ export default function SignIn() {
 
                     <div className="col-12">
                       <div className="mb-4">
-                        <button className="btn btn-secondary w-100">
+                        <button
+                          type="submit"
+                          className="btn btn-secondary w-100"
+                        >
                           SIGN IN
                         </button>
                       </div>
@@ -118,6 +183,6 @@ export default function SignIn() {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }

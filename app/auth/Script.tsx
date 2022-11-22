@@ -1,17 +1,23 @@
 'use client';
-import { useEffect } from 'react';
-import AppScript from './script';
+import { useContext, useEffect } from 'react';
+import { GlobalContext } from '../context';
+import AppScript, { AppLoader } from '../script';
+
 export default function Script() {
+  const { setIsLoading, isLoading } = useContext(GlobalContext);
+
   useEffect(() => {
-    document.body.classList.add("form")
-    const App = AppScript();
-    App.loader();
-    // App.init('layout');
+    document.body.classList.add('form');
+
+    setIsLoading(true);
+    AppLoader();
+    setIsLoading(false);
   }, []);
+
   return (
     <>
-  {/* <!-- BEGIN GLOBAL MANDATORY SCRIPTS --> */}
-  {/* <!-- END GLOBAL MANDATORY SCRIPTS --> */}
-  </>
-  )
+      {/* <!-- BEGIN GLOBAL MANDATORY SCRIPTS --> */}
+      {/* <!-- END GLOBAL MANDATORY SCRIPTS --> */}
+    </>
+  );
 }

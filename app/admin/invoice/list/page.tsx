@@ -1,9 +1,12 @@
+import ClientInvoiceList from "./List";
+
 export default function InvoiceList() {
   return (
     <div className="row" id="cancel-row">
       <div className="col-xl-12 col-lg-12 col-sm-12 layout-top-spacing layout-spacing">
         <div className="widget-content widget-content-area br-8">
-          <table
+          <ClientInvoiceList />
+          {/* <table
             id="invoice-list"
             className="dt-table-hover table"
             style={{ width: '100%' }}
@@ -2322,7 +2325,7 @@ export default function InvoiceList() {
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> */}
         </div>
       </div>
     </div>
