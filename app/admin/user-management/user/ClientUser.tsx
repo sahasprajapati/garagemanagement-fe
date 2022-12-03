@@ -37,7 +37,7 @@ export default function ClientUserList() {
     () => [
       {
         name: 'Action',
-        cell: (row) => (
+        cell: (row : any) => (
           <button
             className="btn btn-primary mr-2"
             data-bs-toggle="modal"
@@ -63,19 +63,19 @@ export default function ClientUserList() {
       },
       {
         name: 'Name',
-        selector: (row) => camelCaseToTitleCase(row?.name),
+        selector: (row : any) => camelCaseToTitleCase(row?.name),
         sortable: true,
         grow: 2,
       },
       {
         name: 'Email',
-        selector: (row) => camelCaseToTitleCase(row?.email),
+        selector: (row : any) => camelCaseToTitleCase(row?.email),
         sortable: true,
         grow: 2,
       },
       {
         name: 'Role',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return camelCaseToTitleCase(row?.role?.name);
         },

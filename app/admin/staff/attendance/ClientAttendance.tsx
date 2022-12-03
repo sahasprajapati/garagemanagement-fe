@@ -34,12 +34,12 @@ export default function ClientStaffAttendanceList() {
       // },
       {
         name: 'Name',
-        selector: (row) => camelCaseToTitleCase(row?.name),
+        selector: (row : any) => camelCaseToTitleCase(row?.name),
         sortable: true,
       },
       {
         name: 'Mobile',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return camelCaseToTitleCase(row?.mobile);
         },
@@ -47,7 +47,7 @@ export default function ClientStaffAttendanceList() {
       },
       {
         name: 'Designation',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return camelCaseToTitleCase(row?.designation?.name);
         },
@@ -56,7 +56,7 @@ export default function ClientStaffAttendanceList() {
       },
       {
         name: 'Status',
-        selector: (row) => {
+        selector: (row : any) => {
           return row?.attendance?.length > 0 && row?.attendance[0]?.status;
         },
         sortable: true,

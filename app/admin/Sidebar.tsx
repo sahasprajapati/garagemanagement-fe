@@ -174,7 +174,9 @@ export default function Sidebar() {
                         ) : (
                           <li className="menu" key={index}>
                             <a
-                              href={item.href}
+                              onClick={() => {
+                                router.push(item.href);
+                              }}
                               aria-expanded="false"
                               className="dropdown-toggle"
                             >

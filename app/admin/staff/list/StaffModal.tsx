@@ -15,7 +15,7 @@ import { staffSchema } from './staff.schema';
 export interface IStaffModalData {
   id: 0,
   days: 0,
-  from: new Date(),
+  from: Date,
   to: null,
   description: '',
   staffId: 0,

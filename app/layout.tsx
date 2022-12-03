@@ -6,6 +6,7 @@ import { SWRConfig } from 'swr';
 import AbilityContextProvider from './abilityContext';
 import GlobalContextProvider from './context';
 import ReactHotToast from './ReactHotToast';
+import "./global.css"
 export default function RootLayout({
   children,
 }: {

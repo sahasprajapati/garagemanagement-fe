@@ -24,13 +24,13 @@ export default function ClientInvoiceList() {
       },
       {
         name: 'Action',
-        selector: (row) => row?.action,
+        selector: (row : any) => row?.action,
         sortable: true,
         grow: 2,
       },
       {
         name: 'Subject',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return row?.subject?.name;
         },

@@ -35,7 +35,7 @@ export default function ClientStaffList() {
     () => [
       {
         name: 'Action',
-        cell: (row) => (
+        cell: (row : any) => (
           <button
             className="btn btn-primary mr-2"
             data-bs-toggle="modal"
@@ -60,12 +60,12 @@ export default function ClientStaffList() {
       },
       {
         name: 'Name',
-        selector: (row) => camelCaseToTitleCase(row?.name),
+        selector: (row : any) => camelCaseToTitleCase(row?.name),
         sortable: true,
       },
       {
         name: 'Mobile',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return camelCaseToTitleCase(row?.mobile);
         },
@@ -73,7 +73,7 @@ export default function ClientStaffList() {
       },
       {
         name: 'Designation',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return camelCaseToTitleCase(row?.designation?.name);
         },

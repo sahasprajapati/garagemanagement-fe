@@ -35,7 +35,7 @@ export default function ClientStaffLeaveList() {
     () => [
       {
         name: 'Action',
-        cell: (row) => (
+        cell: (row : any) => (
           <button
             className="btn btn-primary mr-2"
             data-bs-toggle="modal"
@@ -60,22 +60,22 @@ export default function ClientStaffLeaveList() {
       },
       {
         name: 'Name',
-        selector: (row) => camelCaseToTitleCase(row?.name),
+        selector: (row : any) => camelCaseToTitleCase(row?.name),
         sortable: true,
       },
       {
         name: 'Designation',
-        selector: (row) => camelCaseToTitleCase(row?.designation?.name),
+        selector: (row : any) => camelCaseToTitleCase(row?.designation?.name),
         sortable: true,
       },
       {
         name: 'Days',
-        selector: (row) => row?.leave?.length > 0 && row?.leave[0]?.days,
+        selector: (row : any) => row?.leave?.length > 0 && row?.leave[0]?.days,
         sortable: true,
       },
       {
         name: 'From',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return row?.leave?.length > 0 && row?.leave[0]?.from;
         },
@@ -83,7 +83,7 @@ export default function ClientStaffLeaveList() {
       },
       {
         name: 'To',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return row?.leave?.length > 0 && row?.leave[0]?.to;
         },
@@ -91,7 +91,7 @@ export default function ClientStaffLeaveList() {
       },
       {
         name: 'Description',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return camelCaseToTitleCase(row?.leave?.length > 0 && row?.leave[0]?.description);
         },

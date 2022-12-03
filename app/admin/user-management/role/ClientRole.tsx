@@ -32,7 +32,7 @@ export default function ClientRoleList() {
     () => [
       {
         name: 'Action',
-        cell: (row) => (
+        cell: (row : any) => (
           <button
             className="btn btn-primary mr-2"
             data-bs-toggle="modal"
@@ -57,13 +57,13 @@ export default function ClientRoleList() {
       },
       {
         name: 'Name',
-        selector: (row) => camelCaseToTitleCase(row?.name),
+        selector: (row : any) => camelCaseToTitleCase(row?.name),
         sortable: true,
         grow: 2,
       },
       {
         name: 'Subject',
-        selector: (row) => {
+        selector: (row : any) => {
           console.log('Sahas row', row);
           return camelCaseToTitleCase(
             row?.rolePermissions[0]?.permission?.action,

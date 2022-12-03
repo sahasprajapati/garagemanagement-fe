@@ -10,6 +10,7 @@ export const fetchPermission = async (pageOptions: IPaginate) => {
 };
 
 export const fetchRole = async (pageOptions: IPaginate) => {
+  console.log("Sas", pageOptions)
   const response = await axiosInstance.get(
     `/roles` + generatePagination(pageOptions),
   );
