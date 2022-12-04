@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import './datepicker.css'
 export interface DatePickerProps {
   date: Date;
   handleDateChange: (date: Date) => void;

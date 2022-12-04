@@ -1,0 +1,28 @@
+
+
+/* #1B2E4B */
+.filepond--panel-root {
+    background-color: whitesmoke;
+}
+
+body.dark .filepond--panel-root {
+    background-color: #1B2E4B;
+}
+
+/* ITEM */
+
+
+.multi-image .filepond--item {
+    width: calc(50% - 0.5em);
+}
+@media (min-width: 30em) {
+   .multi-image .filepond--item {
+        width: calc(50% - 0.5em);
+    }
+}
+
+@media (min-width: 50em) {
+   .multi-image .filepond--item {
+        width: calc(33.33% - 0.5em);
+    }
+}

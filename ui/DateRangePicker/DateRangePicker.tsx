@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import { DatePickerProps } from '../DatePicker/DatePicker';
+import './datepicker.css'
 interface DateRangePickerProps
   extends Omit<DatePickerProps, 'handleDateChange'> {
   endDate: Date | null;

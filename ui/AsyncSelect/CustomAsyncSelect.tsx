@@ -1,7 +1,8 @@
 import AsyncSelect from 'react-select/async';
 import makeAnimated from 'react-select/animated';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
+import { getStorage } from '@/lib/utils';
 
 interface CustomAsyncSelectProps {
   setValue: (data: any) => void;
@@ -30,7 +31,25 @@ export default function CustomAsyncSelect(props: CustomAsyncSelectProps) {
     return await fetchFunc({ take: 50 });
   });
   const { mutate } = useSWRConfig();
+  const [darkMode, setDarkMode] = useState(false);
 
+  useEffect(() => {
+    const theme = JSON.parse(getStorage('theme') ?? 'null');
+    if (theme?.settings?.layout?.darkMode) {
+      setDarkMode(true);
+    } else {
+      setDarkMode(false);
+    }
+    document.addEventListener('themeChanged', () => {
+      console.log('Sahas theme', getStorage('theme'));
+      const theme = JSON.parse(getStorage('theme') ?? 'null');
+      if (theme?.settings?.layout?.darkMode) {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false);
+      }
+    });
+  }, []);
   // fetch filteres search results for dropdown
   const loadOptions = async (query: any) => {
     // return fetch(`http://localhost:3000/collabs?q=${query}`).then((res) =>
@@ -46,7 +65,6 @@ export default function CustomAsyncSelect(props: CustomAsyncSelectProps) {
         revalidate: false,
       },
     );
-    console.log('Sahas data data data', data);
     return data.data.map((d: any) => {
       return {
         label: d.name,
@@ -58,25 +76,36 @@ export default function CustomAsyncSelect(props: CustomAsyncSelectProps) {
   return (
     <>
       <AsyncSelect
-        // classNames={{
-        //   control: (state) =>
-        //     state.isFocused ? 'border-red-600' : 'border-grey-300',
-        // }}
-        // classNamePrefix="form-control"
-        // className="form-control"
         cacheOptions
         isMulti
         components={animatedComponents}
         getOptionLabel={(e: any) => e.label}
         getOptionValue={(e: any) => e.id}
         loadOptions={loadOptions}
+        styles={{
+          control: (baseStyles, state) => ({
+            ...baseStyles,
+            ':hover': {
+              borderColor: state.isFocused ? 'transparent' : 'transparent',
+            },
+            borderColor: darkMode
+              ? state.isFocused
+                ? 'transparent'
+                : 'transparent'
+              : '#bfc9d4',
+            backgroundColor: darkMode
+              ? state.isFocused
+                ? '#1B2E4B'
+                : '#1B2E4B'
+              : '',
+          }),
+        }}
         defaultOptions={data?.data?.map((d: any) => {
           return {
             label: d.name,
             id: d.id,
           };
         })}
-        // onInputChange={(value) => setQuery(value)}
         onChange={(value) => setValue(value)}
         {...restProps}
         noOptionsMessage={({ inputValue }) => {

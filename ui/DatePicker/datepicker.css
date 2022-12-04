@@ -1,0 +1,23 @@
+.dark .react-datepicker,
+.dark .react-datepicker-wrapper,
+.dark .react-datepicker__header,
+.dark .react-datepicker__time-list,
+.dark .react-datepicker__input-container,
+.dark .react-datepicker__input-container input {
+  /* display: block;
+    width: 100%; */
+  background-color: #1b2e4b;
+  border-color: #1b2e4b;
+  color: #bfc9d4;
+}
+.dark .react-datepicker__time-list-item:hover {
+  /* display: block;
+        width: 100%; */
+  color: #1b2e4b;
+}
+
+.dark .react-datepicker-time__input {
+  background-color: #1b2e4b;
+  color: #bfc9d4;
+}
+
