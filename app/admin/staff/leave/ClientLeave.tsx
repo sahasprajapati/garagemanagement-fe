@@ -35,7 +35,7 @@ export default function ClientStaffLeaveList() {
     () => [
       {
         name: 'Action',
-        cell: (row : any) => (
+        cell: (row: any) => (
           <button
             className="btn btn-primary mr-2"
             data-bs-toggle="modal"
@@ -60,40 +60,39 @@ export default function ClientStaffLeaveList() {
       },
       {
         name: 'Name',
-        selector: (row : any) => camelCaseToTitleCase(row?.name),
+        selector: (row: any) => camelCaseToTitleCase(row?.name),
         sortable: true,
       },
       {
         name: 'Designation',
-        selector: (row : any) => camelCaseToTitleCase(row?.designation?.name),
+        selector: (row: any) => camelCaseToTitleCase(row?.designation?.name),
         sortable: true,
       },
       {
         name: 'Days',
-        selector: (row : any) => row?.leave?.length > 0 && row?.leave[0]?.days,
+        selector: (row: any) => row?.leave?.length > 0 && row?.leave[0]?.days,
         sortable: true,
       },
       {
         name: 'From',
-        selector: (row : any) => {
-          console.log('Sahas row', row);
+        selector: (row: any) => {
           return row?.leave?.length > 0 && row?.leave[0]?.from;
         },
         sortable: true,
       },
       {
         name: 'To',
-        selector: (row : any) => {
-          console.log('Sahas row', row);
+        selector: (row: any) => {
           return row?.leave?.length > 0 && row?.leave[0]?.to;
         },
         sortable: true,
       },
       {
         name: 'Description',
-        selector: (row : any) => {
-          console.log('Sahas row', row);
-          return camelCaseToTitleCase(row?.leave?.length > 0 && row?.leave[0]?.description);
+        selector: (row: any) => {
+          return camelCaseToTitleCase(
+            row?.leave?.length > 0 && row?.leave[0]?.description,
+          );
         },
         sortable: true,
       },
@@ -119,7 +118,7 @@ export default function ClientStaffLeaveList() {
         columns={columns}
         onClick={() => {}}
         refetchData={refetchData}
-        fetcher={fetchStaffsOnLeave}
+        route="staffs/onLeave"
         fetchLabel="/api/staffs"
       />
       <LeaveModal

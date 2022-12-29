@@ -6,9 +6,6 @@ import { vehicleSchema } from './data.schema';
 export interface IVehicleTypeModalData {
   id?: number;
   name: string;
-  email: string;
-  mobile: string;
-  address: string;
 }
 export default function VehicleTypeModal({
   defaultData,
@@ -17,11 +14,10 @@ export default function VehicleTypeModal({
 }: CustomModal<IVehicleTypeModalData>) {
   const isUpdateData = defaultData?.name !== '';
 
-  console.log("Sahas updaet", defaultData)
   return (
     <Modal
       id="customerModal"
-      title={`${isUpdateData ? 'Update' : 'Create'}  Customer`}
+      title={`${isUpdateData ? 'Update' : 'Create'}  Vehicle Type`}
     >
       <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <DynamicForm
@@ -35,25 +31,10 @@ export default function VehicleTypeModal({
               name: 'name',
               type: 'text',
               placeholder: 'Name',
-            },
-            {
-              name: 'mobile',
-              type: 'text',
-              placeholder: 'Mobile',
-            },
-            {
-              name: 'email',
-              type: 'text',
-              placeholder: 'Email',
-            },
-            {
-              name: 'address',
-              type: 'text',
-              placeholder: 'Address',
-            },
+            }
           ]}
           refetchData={refetchData ? refetchData : () => {}}
-          route="/customers"
+          route="/vehicle-types"
         />
       </div>
     </Modal>

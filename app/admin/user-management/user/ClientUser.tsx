@@ -76,7 +76,6 @@ export default function ClientUserList() {
       {
         name: 'Role',
         selector: (row : any) => {
-          console.log('Sahas row', row);
           return camelCaseToTitleCase(row?.role?.name);
         },
         sortable: true,
@@ -159,7 +158,7 @@ export default function ClientUserList() {
             title="User"
             columns={columns}
             onClick={() => {}}
-            fetcher={fetchUser}
+            route="users"
             clearRows={clearRows}
             refetchData={refreshData}
             selectedActions={[

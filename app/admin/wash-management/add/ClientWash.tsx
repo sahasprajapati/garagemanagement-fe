@@ -1,13 +1,19 @@
 'use client';
-import { fetchUser } from '@/lib/api/user';
 import CustomAsyncSelect from '@/ui/AsyncSelect/CustomAsyncSelect';
 import CustomDatePicker from '@/ui/DatePicker/DatePicker';
 import FieldWithLabel from '@/ui/DynamicForm/FieldWithLabel';
 import FileUpload from '@/ui/FileUpload/FileUpload';
+import CustomerModal from '../../customer-management/CustomerModal';
+import StaffModal from '../../staff/list/ClientModal';
+// import StaffModal from '../../staff/list/StaffModal';
+import VehicleModal from '../../vehicle-management/ClientModal';
 
 export function ClientAddWash() {
   return (
     <div className="row invoice layout-top-spacing layout-spacing">
+      <CustomerModal />
+      <VehicleModal />
+      <StaffModal />
       <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div className="doc-container">
           <div className="row">
@@ -49,6 +55,18 @@ export function ClientAddWash() {
                       <div className="col-xl-5 invoice-address-company">
                         <h4>From:-</h4>
                         <div className="invoice-address-company-fields">
+                          <CustomAsyncSelect
+                            setValue={() => {}}
+                            route="customers"
+                            modalId="customerModal"
+                            name="Customer"
+                          />
+                          <CustomAsyncSelect
+                            setValue={() => {}}
+                            route="staffs"
+                            modalId="staffModal"
+                            name="Staff"
+                          />
                           <FieldWithLabel
                             placeholder="Business Name"
                             name="Name"
@@ -81,6 +99,12 @@ export function ClientAddWash() {
                       </div>
                       <div className="col-xl-5 invoice-address-client">
                         <h4>Bill To:-</h4>
+                        <CustomAsyncSelect
+                          setValue={() => {}}
+                          route="owned-vehicle"
+                          modalId="vehicleModal"
+                          name="Vehicle"
+                        />
                         <div className="invoice-address-client-fields">
                           <FieldWithLabel
                             placeholder="Business Name"
@@ -121,11 +145,13 @@ export function ClientAddWash() {
                           <label htmlFor="number">Invoice Number</label>
                           <CustomAsyncSelect
                             setValue={() => {}}
-                            fetchFunc={fetchUser}
-                            routeLabel=""
+                            route="customers"
+                            modalId="customerModal"
+                            name="Customer"
                           />
                         </div>
                       </div>
+                      customers
                       <div className="col-md-3">
                         <div className="form-group mb-4">
                           <label htmlFor="date">Invoice Date</label>

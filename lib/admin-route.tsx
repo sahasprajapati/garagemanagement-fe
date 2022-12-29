@@ -24,6 +24,16 @@ export const adminRoutes = [
             <line x1="3" y1="10" x2="21" y2="10"></line>
           </svg>
         ),
+        subItem: [
+          {
+            title: 'Customer',
+            href: '/admin/customer-management',
+          },
+          {
+            title: 'Customer Vehicle',
+            href: '/admin/customer-management/owned-vehicle',
+          },
+        ],
       },
       {
         title: 'Vehicle',
@@ -107,7 +117,7 @@ export const adminRoutes = [
 
       {
         title: 'Recondition Management',
-        href: '/',
+        href: '/admin/recondition-management',
         icon: (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -129,8 +139,8 @@ export const adminRoutes = [
         ),
         subItem: [
           {
-            title: 'Wash',
-            href: '/admin/staff/list',
+            title: 'Recondition',
+            href: '/admin/recondition-management',
           },
           {
             title: 'Add Wash',
@@ -141,7 +151,7 @@ export const adminRoutes = [
 
       {
         title: 'Service Management',
-        href: '/',
+        href: '/admin/service-management',
         icon: (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -290,6 +300,10 @@ export const adminRoutes = [
           {
             title: 'Leave',
             href: '/admin/staff/leave',
+          },
+          {
+            title: 'Designation',
+            href: '/admin/staff/designation',
           },
         ],
       },

@@ -32,8 +32,6 @@ export default function CustomDateRangePicker({
     ),
   );
 
-  console.log("Sahas startdate", date)
-  console.log("Sahas end", endDate)
   return (
     <DatePicker
       selected={new Date()}

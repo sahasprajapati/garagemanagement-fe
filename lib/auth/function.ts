@@ -18,7 +18,6 @@ export const loginUser = async (
   setUser: Dispatch<SetStateAction<IUser | null>>,
   accessToken: string,
 ) => {
-  console.log('Sahas token', accessToken);
   setStorage('accessToken', accessToken);
   const user = await fetchUserProfile(setUser);
 };

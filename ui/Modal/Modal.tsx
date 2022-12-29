@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface CustomModal<T> {
-  defaultData: T;
+  defaultData?: T;
   setDefaultData?: (data: T) => void;
   refetchData?: () => void;
 }

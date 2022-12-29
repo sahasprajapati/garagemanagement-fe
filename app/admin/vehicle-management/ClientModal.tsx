@@ -6,9 +6,14 @@ import { vehicleSchema } from './data.schema';
 export interface IVehicleModalData {
   id?: number;
   name: string;
-  email: string;
-  mobile: string;
-  address: string;
+  fuel: string;
+  engine: string;
+  mileage: string;
+  transmission: string;
+  features: string;
+  vehicleTypeId: number;
+  vehicleWheelerTypeId: number;
+  vehicleBrandId: number;
 }
 export default function VehicleModal({
   defaultData,
@@ -17,10 +22,9 @@ export default function VehicleModal({
 }: CustomModal<IVehicleModalData>) {
   const isUpdateData = defaultData?.name !== '';
 
-  console.log("Sahas updaet", defaultData)
   return (
     <Modal
-      id="customerModal"
+      id="vehicleModal"
       title={`${isUpdateData ? 'Update' : 'Create'}  Customer`}
     >
       <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -37,23 +41,58 @@ export default function VehicleModal({
               placeholder: 'Name',
             },
             {
-              name: 'mobile',
+              name: 'fuel',
               type: 'text',
-              placeholder: 'Mobile',
+              placeholder: 'Fuel',
             },
             {
-              name: 'email',
+              name: 'engine',
               type: 'text',
-              placeholder: 'Email',
+              placeholder: 'Engine',
             },
             {
-              name: 'address',
+              name: 'mileage',
               type: 'text',
-              placeholder: 'Address',
+              placeholder: 'Mileage',
+            },
+
+            {
+              name: 'transmission',
+              type: 'text',
+              placeholder: 'Transmission',
+            },
+            {
+              name: 'features',
+              type: 'text',
+              placeholder: 'Features',
+            },
+
+            {
+              name: 'vehicleTypeId',
+              type: 'async',
+              placeholder: 'Vehicle Type',
+              route: 'vehicle-types',
+              isMulti: false,
+            },
+
+            {
+              name: 'vehicleWheelerTypeId',
+              type: 'async',
+              placeholder: 'Vehicle Wheeler',
+              route: 'vehicle-wheeler-type',
+              isMulti: false,
+            },
+
+            {
+              name: 'vehicleBrandId',
+              type: 'async',
+              placeholder: 'Vehicle Brand',
+              route: 'vehicle-brands',
+              isMulti: false,
             },
           ]}
           refetchData={refetchData ? refetchData : () => {}}
-          route="/customers"
+          route="/vehicles"
         />
       </div>
     </Modal>

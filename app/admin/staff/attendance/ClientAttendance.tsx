@@ -16,7 +16,6 @@ export default function ClientStaffAttendanceList() {
   const { mutate } = useSWRConfig();
 
   const handleButtonClick = () => {
-    console.log('clicked');
   };
 
   const columns = useMemo(
@@ -40,7 +39,6 @@ export default function ClientStaffAttendanceList() {
       {
         name: 'Mobile',
         selector: (row : any) => {
-          console.log('Sahas row', row);
           return camelCaseToTitleCase(row?.mobile);
         },
         sortable: true,
@@ -48,7 +46,6 @@ export default function ClientStaffAttendanceList() {
       {
         name: 'Designation',
         selector: (row : any) => {
-          console.log('Sahas row', row);
           return camelCaseToTitleCase(row?.designation?.name);
         },
         
@@ -66,7 +63,6 @@ export default function ClientStaffAttendanceList() {
   );
 
   useEffect(() => {
-    console.log('Sahas date', date);
   }, [date]);
 
   return (
@@ -103,7 +99,7 @@ export default function ClientStaffAttendanceList() {
             title="Attendance"
             columns={columns}
             onClick={() => {}}
-            fetcher={fetchStaffsAttendance}
+            route="staffs/attendance"
             fetchLabel="/api/staffs"
             rowDisabledCriteria={(row:any) => {
               return row?.attendance?.length > 0 && row?.attendance[0]?.status === "LEAVE"

@@ -52,7 +52,6 @@ export default function RoleModal({
         email: defaultData.email,
         password: defaultData.password,
       });
-      console.log('Sahas default data', defaultData);
       setRole(defaultData.roleId);
     }
     // setSelectedPermissions([...defaultData.permissions]);
@@ -61,7 +60,6 @@ export default function RoleModal({
 
   const onSubmit = async (data: any) => {
     try {
-      console.log('Sahas data', data);
       const user = await mutate(
         '/api/users',
 
@@ -144,7 +142,7 @@ export default function RoleModal({
               <span>{errors.email?.message as string}</span>
             )}
           </div>
-          {defaultData.id === 0 && (
+          {defaultData?.id === 0 && (
             <div className="widget-content widget-content-area blog-create-section">
               <input
                 type="text"
@@ -169,7 +167,6 @@ export default function RoleModal({
               <div className="col-sm-9">
                 <select
                   onChange={(e) => {
-                    // console.log('Sahas Select', e.target.value);
                     setRole(+e.target.value);
                   }}
                   value={role}
@@ -179,7 +176,6 @@ export default function RoleModal({
                 >
                   <option value={0}>Choose Role</option>
                   {data?.data?.map((role: any) => {
-                    console.log('Sahas roel', role);
                     return <option value={+role?.id}>{role?.name}</option>;
                   })}
                 </select>

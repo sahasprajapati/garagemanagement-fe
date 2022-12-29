@@ -18,7 +18,7 @@ export default function AddInvoice() {
                 Vehicle
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                Brand
+                Type
               </li>
             </ol>
           </nav>

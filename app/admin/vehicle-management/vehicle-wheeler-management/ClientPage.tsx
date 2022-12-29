@@ -8,25 +8,18 @@ import WarnModal from '@/ui/Modal/WarnModal';
 import toast from 'react-hot-toast';
 import { deleteData } from '@/lib/api/common';
 import { fetchVehicle } from '@/lib/api/vehicle';
-import VehicleWheelerModal, { IVehicleWheelerModalData } from './ClientModal';
-export default function ClientVehicleWheelerList() {
-  const defaultData: IVehicleWheelerModalData = {
+import VehicleTypeModal, { IVehicleTypeModalData } from './ClientModal';
+WarnModal;
+export default function ClientVehicleTypeList() {
+  const defaultData: IVehicleTypeModalData = {
     id: 0,
     name: '',
-    email: '',
-    address: '',
-    mobile: '',
   };
-  const [modalData, setModalData] = useState<IVehicleWheelerModalData>(defaultData);
+  const [modalData, setModalData] =
+    useState<IVehicleTypeModalData>(defaultData);
   const warnButtonRef = useRef<HTMLButtonElement>(null);
-  const handleButtonClick = (
-    id: number,
-    name: string,
-    email: string,
-    address: string,
-    mobile: string,
-  ) => {
-    setModalData({ id, name, email, address, mobile });
+  const handleButtonClick = (id: number, name: string) => {
+    setModalData({ id, name });
   };
 
   const [clearRows, setClearRow] = useState(false);
@@ -36,20 +29,14 @@ export default function ClientVehicleWheelerList() {
     () => [
       {
         name: 'Action',
-        cell: (row : any) => (
+        cell: (row: any) => (
           <button
             className="btn btn-primary mr-2"
             data-bs-toggle="modal"
             data-bs-target="#customerModal"
             type="button"
             onClick={() => {
-              handleButtonClick(
-                row?.id,
-                row?.name,
-                row?.email,
-                row?.address,
-                row?.mobile,
-              );
+              handleButtonClick(row?.id, row?.name);
             }}
           >
             Edit
@@ -61,22 +48,22 @@ export default function ClientVehicleWheelerList() {
       },
       {
         name: 'Name',
-        selector: (row : any) => camelCaseToTitleCase(row?.name),
+        selector: (row: any) => camelCaseToTitleCase(row?.name),
         sortable: true,
       },
       {
         name: 'Email',
-        selector: (row : any) => camelCaseToTitleCase(row?.email),
+        selector: (row: any) => camelCaseToTitleCase(row?.email),
         sortable: true,
       },
       {
         name: 'Mobile',
-        selector: (row : any) => camelCaseToTitleCase(row?.mobile),
+        selector: (row: any) => camelCaseToTitleCase(row?.mobile),
         sortable: true,
       },
       {
         name: 'Address',
-        selector: (row : any) => camelCaseToTitleCase(row?.address),
+        selector: (row: any) => camelCaseToTitleCase(row?.address),
         sortable: true,
       },
     ],
@@ -115,7 +102,7 @@ export default function ClientVehicleWheelerList() {
           </div>
           <div className="w-100  d-flex justify-content-end align-items-end"></div>
 
-          <VehicleWheelerModal
+          <VehicleTypeModal
             defaultData={modalData}
             setDefaultData={setModalData}
             refetchData={() => {
@@ -129,9 +116,10 @@ export default function ClientVehicleWheelerList() {
               });
 
               if (idsToDelete && idsToDelete?.length > 0)
-                deleteData({route: "/vehicles", ids: idsToDelete})
+                deleteData({ route: '/vehicle-wheeler-type', ids: idsToDelete })
                   .then(() => {
                     setClearRow(!clearRows);
+                    setRefetchData(!refreshData)
                     toast.success('Successfully deleted Vehicles!');
                   })
                   .catch(() => {
@@ -157,7 +145,7 @@ export default function ClientVehicleWheelerList() {
             title="Vehicle"
             columns={columns}
             onClick={() => {}}
-            fetcher={fetchVehicle}
+            route="vehicle-wheeler-type"
             clearRows={clearRows}
             refetchData={refreshData}
             selectedActions={[

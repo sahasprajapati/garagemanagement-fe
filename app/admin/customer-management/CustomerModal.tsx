@@ -15,9 +15,8 @@ export default function CustomerModal({
   setDefaultData,
   refetchData,
 }: CustomModal<ICustomerModalData>) {
-  const isUpdateData = defaultData?.name !== '';
+  const isUpdateData = defaultData?.name ? defaultData?.name !== '' : false;
 
-  console.log("Sahas updaet", defaultData)
   return (
     <Modal
       id="customerModal"

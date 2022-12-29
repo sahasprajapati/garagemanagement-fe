@@ -257,7 +257,6 @@ var AppScript = function () {
         var getLocalStorage = localStorage.getItem('theme');
         var parseObj = JSON.parse(getLocalStorage);
 
-        console.log("Sahas parse obj", parseObj);
 
         if (parseObj.settings.layout.darkMode) {
           var getObjectSettings = parseObj.settings.layout;

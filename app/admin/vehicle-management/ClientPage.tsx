@@ -4,30 +4,49 @@ import { camelCaseToTitleCase } from '@/lib/utils';
 import ReactDataTable from '@/ui/ReactDataTable/ReactDataTable';
 import { useMemo, useRef, useState } from 'react';
 
+import { deleteData } from '@/lib/api/common';
 import WarnModal from '@/ui/Modal/WarnModal';
 import toast from 'react-hot-toast';
-import { deleteData } from '@/lib/api/common';
-import { fetchVehicle } from '@/lib/api/vehicle';
 import VehicleModal, { IVehicleModalData } from './ClientModal';
-WarnModal;
 export default function ClientVehicleList() {
   const defaultData: IVehicleModalData = {
     id: 0,
     name: '',
-    email: '',
-    address: '',
-    mobile: '',
+    fuel: '',
+    engine: '',
+    mileage: '',
+    transmission: '',
+    features: '',
+    vehicleTypeId: 0,
+    vehicleWheelerTypeId: 0,
+    vehicleBrandId: 0,
   };
   const [modalData, setModalData] = useState<IVehicleModalData>(defaultData);
   const warnButtonRef = useRef<HTMLButtonElement>(null);
   const handleButtonClick = (
     id: number,
     name: string,
-    email: string,
-    address: string,
-    mobile: string,
+    fuel: string,
+    engine: string,
+    mileage: string,
+    transmission: string,
+    features: string,
+    vehicleBrandId: number,
+    vehicleTypeId: number,
+    vehicleWheelerTypeId: number,
   ) => {
-    setModalData({ id, name, email, address, mobile });
+    setModalData({
+      id,
+      name,
+      fuel,
+      engine,
+      mileage,
+      transmission,
+      features,
+      vehicleBrandId,
+      vehicleTypeId,
+      vehicleWheelerTypeId,
+    });
   };
 
   const [clearRows, setClearRow] = useState(false);
@@ -37,19 +56,24 @@ export default function ClientVehicleList() {
     () => [
       {
         name: 'Action',
-        cell: (row : any) => (
+        cell: (row: any) => (
           <button
             className="btn btn-primary mr-2"
             data-bs-toggle="modal"
-            data-bs-target="#customerModal"
+            data-bs-target="#vehicleModal"
             type="button"
             onClick={() => {
               handleButtonClick(
                 row?.id,
                 row?.name,
-                row?.email,
-                row?.address,
-                row?.mobile,
+                row?.fuel,
+                row?.engine,
+                row?.mileage,
+                row?.transmission,
+                row?.features,
+                row?.vehicleBrandId,
+                row?.vehicleTypeId,
+                row?.vehicleWheelerTypeId,
               );
             }}
           >
@@ -62,22 +86,47 @@ export default function ClientVehicleList() {
       },
       {
         name: 'Name',
-        selector: (row : any) => camelCaseToTitleCase(row?.name),
+        selector: (row: any) => camelCaseToTitleCase(row?.name),
         sortable: true,
       },
       {
-        name: 'Email',
-        selector: (row : any) => camelCaseToTitleCase(row?.email),
+        name: 'Fuel',
+        selector: (row: any) => camelCaseToTitleCase(row?.fuel),
         sortable: true,
       },
       {
-        name: 'Mobile',
-        selector: (row : any) => camelCaseToTitleCase(row?.mobile),
+        name: 'Engine',
+        selector: (row: any) => camelCaseToTitleCase(row?.engine),
         sortable: true,
       },
       {
-        name: 'Address',
-        selector: (row : any) => camelCaseToTitleCase(row?.address),
+        name: 'Mileage',
+        selector: (row: any) => camelCaseToTitleCase(row?.mileage),
+        sortable: true,
+      },
+      {
+        name: 'Transmission',
+        selector: (row: any) => camelCaseToTitleCase(row?.transmission),
+        sortable: true,
+      },
+      {
+        name: 'Features',
+        selector: (row: any) => camelCaseToTitleCase(row?.features),
+        sortable: true,
+      },
+      {
+        name: 'Vehicle Brand',
+        selector: (row: any) => camelCaseToTitleCase(row?.brand?.name),
+        sortable: true,
+      },
+      {
+        name: 'Vehicle Type',
+        selector: (row: any) => camelCaseToTitleCase(row?.type?.name),
+        sortable: true,
+      },
+      {
+        name: 'Vehicle Wheeler',
+        selector: (row: any) => camelCaseToTitleCase(row?.wheelerType?.name),
         sortable: true,
       },
     ],
@@ -105,7 +154,7 @@ export default function ClientVehicleList() {
               type="button"
               className="btn btn-primary mr-2"
               data-bs-toggle="modal"
-              data-bs-target="#customerModal"
+              data-bs-target="#vehicleModal"
               onClick={() => {
                 setClearRow(!clearRows);
                 setModalData(defaultData);
@@ -130,7 +179,7 @@ export default function ClientVehicleList() {
               });
 
               if (idsToDelete && idsToDelete?.length > 0)
-                deleteData({route: "/vehicles", ids: idsToDelete})
+                deleteData({ route: '/vehicles', ids: idsToDelete })
                   .then(() => {
                     setClearRow(!clearRows);
                     toast.success('Successfully deleted Vehicles!');
@@ -158,7 +207,8 @@ export default function ClientVehicleList() {
             title="Vehicle"
             columns={columns}
             onClick={() => {}}
-            fetcher={fetchVehicle}
+            route="vehicles"
+
             clearRows={clearRows}
             refetchData={refreshData}
             selectedActions={[

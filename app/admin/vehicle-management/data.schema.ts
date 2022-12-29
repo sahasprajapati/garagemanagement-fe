@@ -2,9 +2,11 @@ import * as yup from 'yup';
 export const vehicleSchema = yup
   .object({
     name: yup.string().required(),
-    mobile: yup.string().required(),
-    email: yup.string().optional(),
-    address: yup.string().optional(),
+    fuel: yup.string().required(),
+    engine: yup.string().required(),
+    mileage: yup.string().required(),
+    transmission: yup.string().required(),
+    features: yup.string().required(),
+    
   })
   .required();
-

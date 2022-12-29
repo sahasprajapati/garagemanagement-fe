@@ -143,11 +143,9 @@ function transformTag( tagData ){
 }
 
 tagify.on('add', function(e){
- console.log(e.detail)
 })
 
 tagify.on('invalid', function(e){
- console.log(e, e.detail);
 })
 
 var clickDebounce;

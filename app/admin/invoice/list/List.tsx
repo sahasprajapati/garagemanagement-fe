@@ -6,7 +6,6 @@ import { useMemo } from 'react';
 
 export default function ClientInvoiceList() {
   const handleButtonClick = () => {
-    console.log('clicked');
   };
 
   const columns = useMemo(
@@ -31,7 +30,6 @@ export default function ClientInvoiceList() {
       {
         name: 'Subject',
         selector: (row : any) => {
-          console.log('Sahas row', row);
           return row?.subject?.name;
         },
         sortable: true,

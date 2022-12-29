@@ -1,56 +1,74 @@
 'use client';
 
-import { deleteStaffs, fetchStaff } from '@/lib/api/staff';
 import { camelCaseToTitleCase } from '@/lib/utils';
 import ReactDataTable from '@/ui/ReactDataTable/ReactDataTable';
 import { useMemo, useRef, useState } from 'react';
-import StaffModal, { IStaffModalData } from './StaffModal';
 
+import { deleteData } from '@/lib/api/common';
 import WarnModal from '@/ui/Modal/WarnModal';
 import toast from 'react-hot-toast';
-WarnModal;
-export default function ClientStaffList() {
-  const defaultData: IStaffModalData = {
+import VehicleModal, { IVehicleModalData } from './ClientModal';
+export default function ClientVehicleList() {
+  const defaultData: IVehicleModalData = {
     id: 0,
-    name: '',
-    mobile: '',
-    staffDesignationId: 0,
+    kilometerRun: '',
+    makeYear: '',
+    color: '',
+    price: '',
+    numberPlate: '',
+    customerId: 0,
+    vehicleId: 0,
   };
-  const [modalData, setModalData] = useState<IStaffModalData>(defaultData);
-  const [refetchData, setRefetchData] = useState(false);
-
+  const [modalData, setModalData] = useState<IVehicleModalData>(defaultData);
   const warnButtonRef = useRef<HTMLButtonElement>(null);
   const handleButtonClick = (
     id: number,
-    name: string,
-    mobile: string,
-    staffDesignationId: number,
+    kilometerRun: string,
+    makeYear: string,
+    color: string,
+    price: string,
+    numberPlate: string,
+    customerId: number,
+    vehicleId: number,
   ) => {
-    setModalData({ id, name, mobile, staffDesignationId });
+    setModalData({
+      id,
+      kilometerRun,
+      makeYear,
+      color,
+      price,
+      numberPlate,
+      customerId,
+      vehicleId,
+    });
   };
 
   const [clearRows, setClearRow] = useState(false);
+  const [refreshData, setRefetchData] = useState(false);
   const [selectedRows, setSelectedRows] = useState<any>([]);
   const columns = useMemo(
     () => [
       {
         name: 'Action',
-        cell: (row : any) => (
+        cell: (row: any) => (
           <button
             className="btn btn-primary mr-2"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target="#vehicleModal"
             type="button"
             onClick={() => {
               handleButtonClick(
                 row?.id,
-                row?.name,
-                row?.mobile,
-                row?.designation?.id,
+                row?.kilometerRun,
+                row?.makeYear,
+                row?.color,
+                row?.price,
+                row?.numberPlate,
+                row?.customerId,
+                row?.vehicleId,
               );
             }}
           >
-            {' '}
             Edit
           </button>
         ),
@@ -59,24 +77,38 @@ export default function ClientStaffList() {
         button: true,
       },
       {
-        name: 'Name',
-        selector: (row : any) => camelCaseToTitleCase(row?.name),
+        name: 'Kilometer Run',
+        selector: (row: any) => camelCaseToTitleCase(row?.kilometerRun),
         sortable: true,
       },
       {
-        name: 'Mobile',
-        selector: (row : any) => {
-          console.log('Sahas row', row);
-          return camelCaseToTitleCase(row?.mobile);
-        },
+        name: 'Make Year',
+        selector: (row: any) => camelCaseToTitleCase(row?.makeYear),
         sortable: true,
       },
       {
-        name: 'Designation',
-        selector: (row : any) => {
-          console.log('Sahas row', row);
-          return camelCaseToTitleCase(row?.designation?.name);
-        },
+        name: 'Color',
+        selector: (row: any) => camelCaseToTitleCase(row?.color),
+        sortable: true,
+      },
+      {
+        name: 'Price',
+        selector: (row: any) => camelCaseToTitleCase(row?.price),
+        sortable: true,
+      },
+      {
+        name: 'Number Plate',
+        selector: (row: any) => camelCaseToTitleCase(row?.numberPlate),
+        sortable: true,
+      },
+      {
+        name: 'Customer',
+        selector: (row: any) => camelCaseToTitleCase(row?.customer?.name),
+        sortable: true,
+      },
+      {
+        name: 'Vehicle',
+        selector: (row: any) => camelCaseToTitleCase(row?.vehicle?.name),
         sortable: true,
       },
     ],
@@ -98,28 +130,28 @@ export default function ClientStaffList() {
                 display: 'none',
               }}
             >
-              Delete Staff
+              Delete Vehicle
             </button>{' '}
             <button
               type="button"
               className="btn btn-primary mr-2"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
+              data-bs-target="#vehicleModal"
               onClick={() => {
                 setClearRow(!clearRows);
                 setModalData(defaultData);
               }}
             >
-              Add Staff
+              Add Vehicle
             </button>
           </div>
           <div className="w-100  d-flex justify-content-end align-items-end"></div>
 
-          <StaffModal
+          <VehicleModal
             defaultData={modalData}
             setDefaultData={setModalData}
             refetchData={() => {
-              setRefetchData(!refetchData);
+              setRefetchData(!refreshData);
             }}
           />
           <WarnModal
@@ -127,20 +159,19 @@ export default function ClientStaffList() {
               const idsToDelete = selectedRows?.map((rows: any) => {
                 return rows?.id;
               });
-              console.log('Sahas ', warnButtonRef.current);
 
               if (idsToDelete && idsToDelete?.length > 0)
-                deleteStaffs(idsToDelete)
+                deleteData({ route: '/owned-vehicle', ids: idsToDelete })
                   .then(() => {
                     setClearRow(!clearRows);
-                    toast.success('Successfully deleted staffs!');
+                    toast.success('Successfully deleted Vehicles!');
                   })
                   .catch(() => {
                     setClearRow(!clearRows);
 
                     toast
                       .error(
-                        'Error deleting staffs: ' +
+                        'Error deleting Vehicles: ' +
                           selectedRows?.map((rows: any) => {
                             return rows?.name;
                           }),
@@ -151,16 +182,16 @@ export default function ClientStaffList() {
             cancelAction={() => {
               setClearRow(!clearRows);
             }}
-            message="Are you sure you want to delete these staffs?"
+            message="Are you sure you want to delete these Vehicles?"
             actionLabel="Delete"
           />
           <ReactDataTable
-            title="Staff"
+            title="Vehicle"
             columns={columns}
             onClick={() => {}}
-            fetcher={fetchStaff}
+            route="owned-vehicle"
             clearRows={clearRows}
-            refetchData={refetchData}
+            refetchData={refreshData}
             selectedActions={[
               {
                 label: 'Delete',
@@ -170,7 +201,7 @@ export default function ClientStaffList() {
                 },
               },
             ]}
-            fetchLabel="/api/staffs"
+            fetchLabel="/api/Vehicles"
           />
         </div>
       </div>

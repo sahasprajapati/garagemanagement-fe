@@ -27,7 +27,6 @@ export default function PermissionChecker({
     Object.keys(permissionGrouped)
       .sort()
       .forEach((key) => (s[key] = permissionGrouped[key]));
-    console.log('Sahas group', sorted);
 
     setSorted(s);
   }, [permissions]);

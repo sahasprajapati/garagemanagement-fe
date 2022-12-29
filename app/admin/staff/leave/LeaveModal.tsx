@@ -57,7 +57,6 @@ export default function LeaveModal({
 
   useEffect(() => {
     if (defaultData) {
-      console.log("Sahas modal data", defaultData)
       reset({
         days: defaultData.days,
         description: defaultData.description,
@@ -76,7 +75,6 @@ export default function LeaveModal({
 
   const onSubmit = async (data: any) => {
     try {
-      console.log('Sahas data', data);
       const user = await mutate(
         '/api/users',
 
@@ -192,7 +190,6 @@ export default function LeaveModal({
               <div className="col-sm-9">
                 <select
                   onChange={(e) => {
-                    // console.log('Sahas Select', e.target.value);
                     setStaff(+e.target.value);
                   }}
                   value={staff}

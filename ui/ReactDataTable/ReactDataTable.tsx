@@ -11,18 +11,19 @@ import useSWR from 'swr';
 import FilterComponent from './FilterComponent';
 import SelectedRowsAction from './SelectedRowsAction';
 import { useSWRConfig } from 'swr';
+import { fetchData } from '@/lib/api/common';
 
 interface ReactDataTableProps {
   title: string;
   columns: TableColumn<any>[];
   onClick: () => void;
   clearRows?: boolean;
-  fetcher: (pageOptions: IPaginate) => any;
+  route: string;
   fetchLabel: string;
   selectableRows?: boolean;
   refetchData?: boolean;
   selectedActions?: { label: string; action: (selectedRows: any[]) => void }[];
-  rowDisabledCriteria?: (row: any) => boolean
+  rowDisabledCriteria?: (row: any) => boolean;
 }
 
 // createTheme creates a new theme named solarized that overrides the build in dark theme
@@ -58,11 +59,11 @@ const ReactDataTable = ({
   onClick,
   clearRows,
   refetchData,
-  fetcher,
+  route,
   fetchLabel,
   selectableRows = true,
   selectedActions,
-  rowDisabledCriteria
+  rowDisabledCriteria,
 }: ReactDataTableProps) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [toggledClearRows, setToggleClearRows] = React.useState(false);
@@ -110,9 +111,12 @@ const ReactDataTable = ({
   const { data: resData } = useSWR(
     `${fetchLabel}?page=${pageIndex}&take=${perPage}`,
     async (data) => {
-      const res = await fetcher({
-        page: pageIndex,
-        take: perPage,
+      const res = await fetchData({
+        route: route,
+        pageOptions: {
+          page: pageIndex,
+          take: perPage,
+        },
       });
       return res;
     },
@@ -180,11 +184,11 @@ const ReactDataTable = ({
         title={title}
         columns={columns}
         theme={darkMode ? 'solarized' : 'light'}
-        data={resData?.data}
+        data={resData?.data ?? []}
         progressPending={!resData}
         pagination
         paginationServer
-        paginationTotalRows={resData?.meta?.pageCount * perPage}
+        paginationTotalRows={resData?.meta?.pageCount ?? 0 * perPage}
         selectableRows={selectableRows}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}

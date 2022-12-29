@@ -1,6 +1,6 @@
-import ClientCustomerList from '../customer-management/ClientCustomer';
+import ClientVehicleList from './ClientPage';
 
-export default function AddInvoice() {
+export default function ListVehicle() {
   return (
     <>
       <div>
@@ -15,14 +15,14 @@ export default function AddInvoice() {
                 <a href="#">Settings</a>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                Customer
+                Vehicle
               </li>
             </ol>
           </nav>
         </div>
         {/* /BREADCRUMB */}
         <div className="row layout-spacing layout-top-spacing mb-4">
-          <ClientCustomerList />
+          <ClientVehicleList />
         </div>
       </div>
     </>

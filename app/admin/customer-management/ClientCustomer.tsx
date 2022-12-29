@@ -157,7 +157,7 @@ export default function ClientCustomerList() {
             title="Customer"
             columns={columns}
             onClick={() => {}}
-            fetcher={fetchCustomer}
+            route="customers"
             clearRows={clearRows}
             refetchData={refreshData}
             selectedActions={[

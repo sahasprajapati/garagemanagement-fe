@@ -6,7 +6,6 @@ export const fetchStaff = async (pageOptions: IPaginate) => {
   const response = await axiosInstance.get(
     `/staffs` + generatePagination(pageOptions),
   );
-  console.log('Sahas res', response);
   return response.data;
 };
 
@@ -44,7 +43,6 @@ export const fetchStaffsOnLeave = async (pageOptions: IPaginate) => {
   const response = await axiosInstance.get(
     `/staffs/onLeave` + generatePagination(pageOptions),
   );
-  console.log('Sahas res', response);
   return response.data;
 };
 
@@ -52,7 +50,6 @@ export const fetchStaffsAttendance = async (pageOptions: IPaginate) => {
   const response = await axiosInstance.get(
     `/staffs/attendance` + generatePagination(pageOptions),
   );
-  console.log('Sahas res', response);
   return response.data;
 };
 

@@ -1,4 +1,4 @@
-import ClientStaffList from "./ClientStaff";
+import ClientStaffList from "./ClientPage";
 
 export default function AddInvoice() {
   return (
@@ -12,18 +12,17 @@ export default function AddInvoice() {
                 <a href="#">App</a>
               </li>
               <li className="breadcrumb-item">
-                <a href="#">Staff</a>
+                <a href="#">Settings</a>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                Management
+                Customer
               </li>
             </ol>
           </nav>
         </div>
         {/* /BREADCRUMB */}
         <div className="row layout-spacing layout-top-spacing mb-4">
-          <ClientStaffList/>
-
+          <ClientStaffList />
         </div>
       </div>
     </>

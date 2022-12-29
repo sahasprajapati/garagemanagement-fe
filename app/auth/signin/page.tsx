@@ -29,7 +29,6 @@ export default function SignIn() {
       const user = await mutate('/api/login', login(data), {
         revalidate: false,
       });
-      console.log('Sahas user', user);
 
       loginUser(setUser, user.accessToken)
         .then(() => {
@@ -40,9 +39,7 @@ export default function SignIn() {
           toast.error('Error Singing In');
         });
 
-      console.log('Sahas data', user);
     } catch (err) {
-      console.log('Sahas err', err);
       toast.error('Invalid credentials!');
     }
   };

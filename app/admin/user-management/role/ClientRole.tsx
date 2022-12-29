@@ -64,7 +64,6 @@ export default function ClientRoleList() {
       {
         name: 'Subject',
         selector: (row : any) => {
-          console.log('Sahas row', row);
           return camelCaseToTitleCase(
             row?.rolePermissions[0]?.permission?.action,
           );
@@ -152,7 +151,8 @@ export default function ClientRoleList() {
             columns={columns}
             refetchData={refetchData}
             onClick={() => {}}
-            fetcher={fetchRole}
+            route="roles"
+            // fetcher={fetchRole}
             clearRows={clearRows}
             selectedActions={[
               {

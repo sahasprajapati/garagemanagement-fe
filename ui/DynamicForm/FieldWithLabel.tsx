@@ -7,7 +7,7 @@ interface IFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
   name: string;
   id: string;
-  type: 'input' | 'textarea';
+  type?: 'input' | 'textarea';
 }
 export default function FieldWithLabel(props: IFieldProps) {
   const {

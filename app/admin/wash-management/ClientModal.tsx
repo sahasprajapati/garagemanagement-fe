@@ -5,19 +5,18 @@ import { vehicleSchema } from './data.schema';
 
 export interface IVehicleModalData {
   id?: number;
-  name: string;
-  email: string;
-  mobile: string;
-  address: string;
+  customerId: number;
+  vehicleId: number;
+  staffId: number;
+  transactionId?: number;
 }
 export default function VehicleModal({
   defaultData,
   setDefaultData,
   refetchData,
 }: CustomModal<IVehicleModalData>) {
-  const isUpdateData = defaultData?.name !== '';
+  const isUpdateData = defaultData?.customerId ? defaultData?.customerId > 0 : false ;
 
-  console.log("Sahas updaet", defaultData)
   return (
     <Modal
       id="customerModal"
@@ -29,31 +28,43 @@ export default function VehicleModal({
           schema={vehicleSchema}
           setSpecificData={() => {}}
           isUpdateData={isUpdateData}
-          label="Customer"
+          label="Wash"
           inputs={[
             {
-              name: 'name',
+              name: 'serviceName',
               type: 'text',
-              placeholder: 'Name',
+              placeholder: 'Service Name',
+              defaultValue: "WASH",
+              disabled: true,
             },
             {
-              name: 'mobile',
-              type: 'text',
-              placeholder: 'Mobile',
+              name: 'customerId',
+              type: 'async',
+              placeholder: 'Customer',
+              route: "customers"
             },
             {
-              name: 'email',
-              type: 'text',
-              placeholder: 'Email',
+              name: 'vehicleId',
+              type: 'async',
+              placeholder: 'Vehicle',
+              route: "owned-vehicle"
+
             },
             {
-              name: 'address',
-              type: 'text',
-              placeholder: 'Address',
+              name: 'staffId',
+              type: 'async',
+              placeholder: 'Staff',
+              route: "staffs"
             },
+            // {
+            //   name: 'transactionId',
+            //   type: 'async',
+            //   placeholder: 'Transaction',
+            //   route: "transactions"
+            // },
           ]}
           refetchData={refetchData ? refetchData : () => {}}
-          route="/customers"
+          route="/service"
         />
       </div>
     </Modal>

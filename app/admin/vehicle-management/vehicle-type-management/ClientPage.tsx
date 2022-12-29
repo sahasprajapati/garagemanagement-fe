@@ -14,21 +14,12 @@ export default function ClientVehicleTypeList() {
   const defaultData: IVehicleTypeModalData = {
     id: 0,
     name: '',
-    email: '',
-    address: '',
-    mobile: '',
   };
   const [modalData, setModalData] =
     useState<IVehicleTypeModalData>(defaultData);
   const warnButtonRef = useRef<HTMLButtonElement>(null);
-  const handleButtonClick = (
-    id: number,
-    name: string,
-    email: string,
-    address: string,
-    mobile: string,
-  ) => {
-    setModalData({ id, name, email, address, mobile });
+  const handleButtonClick = (id: number, name: string) => {
+    setModalData({ id, name });
   };
 
   const [clearRows, setClearRow] = useState(false);
@@ -45,13 +36,7 @@ export default function ClientVehicleTypeList() {
             data-bs-target="#customerModal"
             type="button"
             onClick={() => {
-              handleButtonClick(
-                row?.id,
-                row?.name,
-                row?.email,
-                row?.address,
-                row?.mobile,
-              );
+              handleButtonClick(row?.id, row?.name);
             }}
           >
             Edit
@@ -131,9 +116,10 @@ export default function ClientVehicleTypeList() {
               });
 
               if (idsToDelete && idsToDelete?.length > 0)
-                deleteData({ route: '/vehicles', ids: idsToDelete })
+                deleteData({ route: '/vehicle-types', ids: idsToDelete })
                   .then(() => {
                     setClearRow(!clearRows);
+                    setRefetchData(!refreshData);
                     toast.success('Successfully deleted Vehicles!');
                   })
                   .catch(() => {
@@ -159,7 +145,7 @@ export default function ClientVehicleTypeList() {
             title="Vehicle"
             columns={columns}
             onClick={() => {}}
-            fetcher={fetchVehicle}
+            route="vehicle-types"
             clearRows={clearRows}
             refetchData={refreshData}
             selectedActions={[
